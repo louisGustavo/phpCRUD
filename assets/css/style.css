@@ -1,0 +1,80 @@
+*  {
+	margin:0;
+	padding:0;
+}
+
+html, body {height:100%;}
+/*AREA LOGIN*/
+#form-login{
+	margin-top: 3em;
+	box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+	padding: 2em;
+	border-radius: 0.2em;
+}
+#form-login #msg{
+	display: none;
+}
+#form-login input{
+	margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  height: 48px;
+  padding: 0 20px;
+  font-size: 16px;
+  color: #666;
+}
+#form-login input::placeholder {
+  color: #999;
+}
+#form-login input[type="submit"]{
+	background-color: #5DBCD2;
+  border: 0;
+  border-radius: 4px;
+  height: 48px;
+	font-size: 16px;
+	cursor: pointer;
+	color: #FFF;
+	font-weight: bold;
+}
+/* TEMPLATE */
+footer{
+	background-color: #999;
+	padding: 1em;
+	color: #FFF;
+}
+/* HOME */
+#menu{
+	background-color: #999;
+	padding: 1em;
+	color: #FFF;
+}
+#menu p, #menu a{
+	font-weight: bold;
+}
+#menu a{
+	color: #FF0000;
+}
+#cadastro-clientes, #box-listagem-clientes{
+	margin-top: 3em;
+}
+#box-listagem-clientes {
+	margin-bottom: 5em;
+}
+#btn-acoes a{
+	padding-right: .9em;
+	color: #FFF;
+	border-radius: 4px;
+	padding: 8px 15px 8px 10px;
+}
+#btn-acoes a:hover{
+	background-color: #5DBCD2;
+}
+#btn-show{
+	background-color: green;
+}
+#btn-edit{
+	background-color: #ff9900;
+} 
+#btn-delete{
+	background-color: red;
+}
