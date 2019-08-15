@@ -36,7 +36,7 @@ class Costumers_model extends CI_Model {
 		return $data;
 	}
 
-	public function insert($form){
+	public function insert($form) {
 		if($this->db->insert($this->table, $form)){
 				return $this->db->insert_id();
 		}else{
@@ -44,7 +44,7 @@ class Costumers_model extends CI_Model {
 		}
 	}
 
-	public function update($form, $id){
+	public function update($form, $id) {
 			$this->db->set($form);
 			$this->db->where('icodcond', $id);
 			$this->db->update($this->table);
@@ -56,10 +56,23 @@ class Costumers_model extends CI_Model {
 			}
 	}
 
-	public function delete($id){
+	public function delete($id) {
 		$this->db->where('id', $id);
 		$this->db->delete($this->table);
 
 		return $this->db->affected_rows();
+	}
+
+	public function verificaDuplicidade($cost_cpf) {
+		$query = $this->db->query("SELECT cost_cpf 
+																FROM $this->table
+																WHERE cost_cpf = '$cost_cpf'");
+
+		if($query->num_rows() > 0) {
+			$data = TRUE;
+		}else {
+			$data = FALSE;
+		}
+		return $data;
 	}
 }

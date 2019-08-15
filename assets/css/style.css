@@ -2,8 +2,9 @@
 	margin:0;
 	padding:0;
 }
-
-html, body {height:100%;}
+body{
+	margin-bottom: 6.5em !important;
+}
 /*AREA LOGIN*/
 #form-login{
 	margin-top: 3em;
@@ -37,6 +38,12 @@ html, body {height:100%;}
 	font-weight: bold;
 }
 /* TEMPLATE */
+h3 a{
+	color: #5DBCD2 !important;
+}
+h3 a:hover{
+	text-decoration: none;
+}
 footer{
 	background-color: #999;
 	padding: 1em;
@@ -64,7 +71,7 @@ footer{
 	padding-right: .9em;
 	color: #FFF;
 	border-radius: 4px;
-	padding: 8px 15px 8px 10px;
+	padding: 8px 13px 8px 13px;
 }
 #btn-acoes a:hover{
 	background-color: #5DBCD2;
@@ -77,4 +84,14 @@ footer{
 } 
 #btn-delete{
 	background-color: red;
+}
+#box-add-address, #box-listagem-address{
+	display: none;
+}
+#footer-info{
+	margin-top: 3em;
+	padding-top: 1.8em;
+}
+#footer-info p{
+	font-weight: bold;
 }

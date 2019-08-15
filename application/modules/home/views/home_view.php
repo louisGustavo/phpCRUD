@@ -32,11 +32,11 @@
 							<td><?php echo data_br($costumers->cost_datenasc); ?></td>
 							<td><?php echo $costumers->cost_cpf; ?></td>
 							<td><?php echo $costumers->cost_rg; ?></td>
-							<td><?php echo $costumers->cost_fone; ?></td>
+							<td><?php echo $costumers->cost_phone; ?></td>
 							<td class="text-center" id="btn-acoes">
-								<a href="<?php echo base_url('costumers/show/'.$costumers->id) ?>" id="btn-show" title="Visualizar Cliente"><i class="fa fa-user"> Visualizar</i></a>
-								<a href="<?php echo base_url('costumers/edit/'.$costumers->id) ?>" id="btn-edit" title="Editar Cliente"><i class="fa fa-user-edit"> Editar</i></a>
-								<a href="<?php echo base_url('costumers/delete/'.$costumers->id) ?>" id="btn-delete" title="Excluir Cliente"><i class="fa fa-user-times"> Excluir</i></a>
+								<a href="<?php echo base_url('costumers/show/'.$costumers->id) ?>" id="btn-show" title="Visualizar Cliente"><i class="fa fa-user"></i></a>
+								<a href="<?php echo base_url('costumers/edit/'.$costumers->id) ?>" id="btn-edit" title="Editar Cliente"><i class="fa fa-user-edit"></i></a>
+								<a href="<?php echo base_url('costumers/delete/'.$costumers->id) ?>" id="btn-delete" title="Excluir Cliente"><i class="fa fa-user-times"></i></a>
 							</td>
 						</tr>
 						<?php endforeach; ?>
