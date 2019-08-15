@@ -41,6 +41,13 @@ class Costumers extends CI_Controller {
 
 	public function show() {
 		$id = $this->uri->segment(3);
-		echo $id;
+		$dados['costumer'] = $this->costumers->getCostumer($id);
+
+		if ($dados['costumer']) {
+			$this->template->load('template', 'show_cost_view', $dados);
+		} else {
+			redirect('home', 'refresh');
+			exit;
+		}
 	}
 }

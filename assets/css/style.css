@@ -61,7 +61,7 @@ footer{
 #menu a{
 	color: #FF0000;
 }
-#cadastro-clientes, #box-listagem-clientes{
+#container-clientes, #box-listagem-clientes{
 	margin-top: 3em;
 }
 #box-listagem-clientes {

@@ -1,12 +1,12 @@
-<section class="container-fluid" id="cadastro-clientes">
+<section class="container-fluid" id="container-clientes">
 	<div class="row">
 		<div class="col-md-10 offset-md-1">
-		<nav aria-label="breadcrumb">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="<?php echo base_url('home') ?>">Home</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Novo Cliente</li>
-			</ol>
-		</nav>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="<?php echo base_url('home') ?>">Home</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Novo Cliente</li>
+				</ol>
+			</nav>
 		</div>
 	</div>
 	<hr>
