@@ -46,7 +46,7 @@ class Costumers_model extends CI_Model {
 
 	public function update($form, $id) {
 			$this->db->set($form);
-			$this->db->where('icodcond', $id);
+			$this->db->where('id', $id);
 			$this->db->update($this->table);
 
 			if($this->db->affected_rows() >= 0){

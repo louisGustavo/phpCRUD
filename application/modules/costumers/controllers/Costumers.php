@@ -35,8 +35,21 @@ class Costumers extends CI_Controller {
 			} else {
 				echo json_encode(array('status' => 'erro'));
 			}
-		}
+		}	
+	}
+
+	public function editCostumer() {
+		$form = $this->input->post();
+		$id 	= $form['id'];
 		
+		$form['cost_datealt'] = date('Y-m-d H:i:s');
+		unset($form['id']);
+
+		if ($this->costumers->update($form, $id)) {
+			echo json_encode(array('status' => 'sucesso'));
+		} else {
+			echo json_encode(array('status' => 'erro'));
+		}
 	}
 
 	public function show() {
@@ -45,6 +58,19 @@ class Costumers extends CI_Controller {
 
 		if ($dados['costumer']) {
 			$this->template->load('template', 'show_cost_view', $dados);
+		} else {
+			redirect('home', 'refresh');
+			exit;
+		}
+	}
+
+	public function edit() {
+		$id = $this->uri->segment(3);
+		$dados['costumer'] 	= $this->costumers->getCostumer($id);
+		$dados['cities'] 		= $this->cadcidades->getCities();
+		
+		if ($dados['costumer']) {
+			$this->template->load('template', 'edit_cost_view', $dados);
 		} else {
 			redirect('home', 'refresh');
 			exit;

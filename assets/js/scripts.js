@@ -208,6 +208,8 @@ function getAddress(add_user_id) {
 				});
 				html += '	</tbody>';
 				html += '</table>';
+			} else {
+				html = '<div class="alert alert-info">NENHUM ENDEREÇO CADASTRADO :(</div>';
 			}
 			$('#listagem-address').append(html);
 			$('#box-listagem-address').fadeIn();
@@ -251,3 +253,44 @@ function addAddress(form, add_user_id) {
 	});
 }
 //--------------------| FIM FORM ADD ENDEREÇOS |--------------------------------
+
+//-----------| ALTERA OS DADOS DO CLIENTE INFORMADO |------------------
+function editCostumer(form) {
+	$.ajax({
+		type: 'POST',
+		url: baseUrl+'/costumers/editCostumer',
+		data: form,
+		dataType: 'json',
+		beforeSend: function(){
+			Swal.fire({
+				title: 'Aguarde',
+				text: 'Seus dados estão sendo salvos',
+				type: 'warning',
+				showConfirmButton: false
+			});
+		},
+		success: function(data){
+			if (data.status == 'sucesso') {
+				Swal.fire({
+					title: 'Concluído',
+					text: 'Dados Alterados com Sucesso',
+					type: 'success',
+					timer: 2000
+				});
+			} else if(data.status == 'duplicidade') {
+				Swal.fire({
+					title: 'Duplicidade',
+					text: 'O CPF informado já se encontrada cadastrado',
+					type: 'warning'
+				});
+			} else {
+				Swal.fire({
+					title: 'Erro',
+					text: 'Houve algum problema ao salvar os dados',
+					type: 'error'
+				});
+			}
+		}
+	});
+}
+//--------| FIM ALTERA OS DADOS DO CLIENTE INFORMADO |------------------
