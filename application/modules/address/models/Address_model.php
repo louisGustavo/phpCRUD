@@ -53,6 +53,13 @@ class Address_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
+	public function deleteAllAddress($add_user_id){
+		$this->db->where('add_user_id', $add_user_id);
+		$this->db->delete($this->table);
+
+		return $this->db->affected_rows();
+	}
+
 	public function returnOneAdress($id) {
 		$query = $this->db->query("SELECT * 
 																FROM $this->table

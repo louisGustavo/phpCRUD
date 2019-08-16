@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 14-Ago-2019 às 07:33
+-- Tempo de geração: 16-Ago-2019 às 04:27
 -- Versão do servidor: 10.3.16-MariaDB
 -- versão do PHP: 7.2.21
 
@@ -21,6 +21,25 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `crud`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `address`
+--
+
+CREATE TABLE `address` (
+  `id` int(11) NOT NULL,
+  `add_user_id` int(11) NOT NULL,
+  `add_datecad` timestamp NOT NULL DEFAULT current_timestamp(),
+  `add_cep` varchar(10) NOT NULL,
+  `add_street` varchar(150) NOT NULL,
+  `add_number` int(11) NOT NULL,
+  `add_comple` varchar(60) NOT NULL,
+  `add_bairro` varchar(100) NOT NULL,
+  `add_cidade` int(11) NOT NULL,
+  `add_estado` varchar(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -11226,13 +11245,6 @@ CREATE TABLE `costumers` (
   `cost_phone` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Extraindo dados da tabela `costumers`
---
-
-INSERT INTO `costumers` (`id`, `cost_name`, `cost_datecad`, `cost_datealt`, `cost_datenasc`, `cost_cpf`, `cost_rg`, `cost_typephone`, `cost_phone`) VALUES
-(1, 'Luís Gustavo', '2019-08-14 03:46:03', '0000-00-00 00:00:00', '1990-08-15', '234.456.565-40', '34.567.567-9', '', '(19) 9.8769-7680');
-
 -- --------------------------------------------------------
 
 --
@@ -11256,6 +11268,12 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`) VALUES
 --
 -- Índices para tabelas despejadas
 --
+
+--
+-- Índices para tabela `address`
+--
+ALTER TABLE `address`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices para tabela `cadcidades`
@@ -11286,6 +11304,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT de tabela `address`
+--
+ALTER TABLE `address`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `cadcidades`
 --
 ALTER TABLE `cadcidades`
@@ -11301,13 +11325,23 @@ ALTER TABLE `cadibge`
 -- AUTO_INCREMENT de tabela `costumers`
 --
 ALTER TABLE `costumers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Restrições para despejos de tabelas
+--
+
+--
+-- Limitadores para a tabela `address`
+--
+ALTER TABLE `address`
+  ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`add_user_id`) REFERENCES `costumers` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

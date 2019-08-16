@@ -151,9 +151,48 @@ function addCostumer(form) {
 		}
 	});
 }
-//--------| FIM GRAVA OS DADOS DO CLIENTE INFORMADO |------------------
+//----------------| FIM GRAVA OS DADOS DO CLIENTE INFORMADO |-------------------
 
-//----------------| BLOQUEIA O FORM DO CLIENTE |-----------------------
+//------------------| EXCLUI OS DADOS DO CLIENTE INFORMADO |--------------------
+function removeCostumer(id) {
+	$.ajax({
+		type: 'POST',
+		url: baseUrl+'/costumers/removeCostumer',
+		data: {id : id},
+		dataType: 'json',
+		beforeSend: function(){
+			Swal.fire({
+				title: 'Aguarde',
+				text: 'Excluindo Registro',
+				type: 'warning',
+				showConfirmButton: false
+			});
+		},
+		success: function(data){
+			if (data.status == 'sucesso') {
+				Swal.fire({
+					title: 'Registro Excluído',
+					text: 'Direcionando para a Home',
+					type: 'success',
+					showConfirmButton: false,
+					timer: 2000
+				});
+				setTimeout(function(){
+					window.location.href = baseUrl+'/home';
+				}, 2000);
+			} else {
+				Swal.fire({
+					title: 'Erro',
+					text: 'Houve algum problema ao excluir o registro',
+					type: 'error'
+				});
+			}
+		}
+	});
+}
+//--------------| FIM EXCLUI OS DADOS DO CLIENTE INFORMADO |--------------------
+
+//---------------------| BLOQUEIA O FORM DO CLIENTE |---------------------------
 function bloqueiaForm() {
 	$('#cost_name').attr('readonly', true);
 	$('#cost_datenasc').attr('readonly', true);
@@ -167,7 +206,7 @@ function bloqueiaForm() {
 //---------------| FIM BLOQUEIA O FORM DO CLIENTE |-----------------------
 
 //--------------| RETORNA OS ENDEREÇOS CADASTRADOS |-----------------------
-function getAddress(add_user_id) {
+function getAddress(add_user_id, view = null) {
 	$.ajax({
 		type: 'POST',
 		url: baseUrl+'/address/returnAddress',
@@ -191,7 +230,9 @@ function getAddress(add_user_id) {
 				html += '			<th>Bairro</th>';
 				html += '			<th>Cidade</th>';
 				html += '			<th>UF</th>';
+				if (view == 'EDIT') {
 				html += '			<th>Ações</th>';
+				}
 				html += '		</tr>';
 				html += '	</thead>';
 				html += '	<tbody>';
@@ -205,6 +246,7 @@ function getAddress(add_user_id) {
 				html += '			<td>'+address.add_bairro+'</td>';
 				html += '			<td>'+address.nomecidade+'</td>';
 				html += '			<td>'+address.add_estado+'</td>';
+				if (view == 'EDIT') {
 				html += '			<td>';
 				html += '				<a id="edit-address-'+address.id+'" class="edit-address" idad="'+address.id+'" href="#" title="Editar">';
 				html += '					<i class="fa fa-edit text-success"></i></a>';
@@ -212,6 +254,7 @@ function getAddress(add_user_id) {
 				html += '				<a id="delete-address-'+address.id+'" class="delete-address" idad="'+address.id+'" title="Excluir" href="#">';
 				html += '					<i class="fa fa-trash text-danger"></i></a>';
 				html += '			</td>';
+				}
 				html += '		</tr>';
 				});
 				html += '	</tbody>';
@@ -265,7 +308,7 @@ function editAddress(form) {
 					type: 'success',
 					timer: 2000
 				});
-				getAddress(data.add_user_id);
+				getAddress(data.add_user_id, 'EDIT');
 				preparaFormAddress('NEW');
 				limpaFormAddress();
 			} else {

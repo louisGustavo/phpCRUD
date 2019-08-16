@@ -4,7 +4,7 @@
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="<?php echo base_url('home') ?>">Home</a></li>
-					<li class="breadcrumb-item active" aria-current="page">Novo Cliente</li>
+					<li class="breadcrumb-item active" aria-current="page"><?php echo 'Editar Cliente #'.$costumer->id ?></li>
 				</ol>
 			</nav>
 		</div>
@@ -151,7 +151,7 @@
 	<div id="box-listagem-address">
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
-			<h3>ENDEREÇOS CADASTRADOS</h3>
+				<h3>ENDEREÇOS CADASTRADOS</h3>
 			</div>
 		</div>
 		<div class="row">
@@ -168,7 +168,7 @@
 <script>
 $(document).ready(function() {
 	var id = $('#id').val();
-	getAddress(id);
+	getAddress(id, 'EDIT');
 
 	$('#add-address').on('submit', function(e){
 		e.preventDefault();

@@ -8,6 +8,7 @@ class Costumers extends CI_Controller {
 		verifica_login();
 		$this->load->model('costumers/Costumers_model', 'costumers');
 		$this->load->model('cadcidades/Cadcidades_model', 'cadcidades');
+		$this->load->model('address/Address_model', 'address');
 	}
 
 	public function index() {
@@ -61,6 +62,42 @@ class Costumers extends CI_Controller {
 		} else {
 			redirect('home', 'refresh');
 			exit;
+		}
+	}
+
+	public function delete() {
+		$id = $this->uri->segment(3);
+		$dados['costumer'] = $this->costumers->getCostumer($id);
+
+		if ($dados['costumer']) {
+			$this->template->load('template', 'delete_cost_view', $dados);
+		} else {
+			redirect('home', 'refresh');
+			exit;
+		}
+	}
+
+	public function removeCostumer() {
+		$id_user = $this->input->post('id');
+		$address = $this->address->getAddress($id_user);
+
+		if ($address == FALSE) {
+			if ($this->costumers->delete($id_user)) {
+				echo json_encode(array('status' => 'sucesso'));
+			} else {
+				echo json_encode(array('status' => 'erro'));
+			}
+		} else {
+			if ($this->address->deleteAllAddress($id_user)) {
+				
+				if ($this->costumers->delete($id_user)) {
+					echo json_encode(array('status' => 'sucesso'));
+				} else {
+					echo json_encode(array('status' => 'erro'));
+				}
+			} else {
+				echo json_encode(array('status' => 'erro'));
+			}
 		}
 	}
 
