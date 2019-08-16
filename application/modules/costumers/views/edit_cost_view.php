@@ -177,6 +177,7 @@ $(document).ready(function() {
 		
 		if ($('#tipo-form').val() == 'newAddress') {
 			addAddress(form, add_user_id);
+			getAddress(add_user_id, 'EDIT');
 		} else if($('#tipo-form').val() == 'editAddress') {
 			editAddress(form);
 		}

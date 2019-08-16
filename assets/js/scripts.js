@@ -410,7 +410,7 @@ function deleteAddress(id, add_user_id) {
 							type: 'success',
 							timer: 2000
 						});
-						getAddress(add_user_id);
+						getAddress(add_user_id, 'EDIT');
 					} else {
 						Swal.fire({
 							title: 'Erro',

@@ -14,9 +14,7 @@
 			<div class="col-xs-10 col-md-4 offset-md-4">
 				<form id="form-login">
 					<div class="form-group text-center">
-						<!--
-						<img src="<?php //echo base_url('assets/img/logo.jpg'); ?>" alt="logo" class="img-fluid">
-						-->
+						<img src="<?php echo base_url('assets/img/logo.jpg'); ?>" alt="logo" class="img-fluid">
 						<div id="msg" class="alert alert-warning" role="alert"></div>
 						<input required type="mail" name="email" id="email" class="form-control" placeholder="Informe o email de acesso">
 						<input required type="password" name="password" id="password" class="form-control" placeholder="******">
