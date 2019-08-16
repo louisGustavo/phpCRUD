@@ -52,4 +52,23 @@ class Address_model extends CI_Model {
 
 		return $this->db->affected_rows();
 	}
+
+	public function returnOneAdress($id) {
+		$query = $this->db->query("SELECT * 
+																FROM $this->table
+																INNER JOIN
+																(SELECT cCodIBGE, nome AS nomecidade 
+																	FROM cadcidades) AS cidade
+																ON $this->table.add_cidade = cidade.cCodIBGE
+																WHERE id = $id");
+
+		if($query->num_rows() > 0) {
+			foreach($query->result() as $row) {
+				$data = $row;
+			}
+		}else {
+			$data = FALSE;
+		}
+		return $data;
+	}
 }

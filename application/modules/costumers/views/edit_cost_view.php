@@ -73,7 +73,7 @@
 		<hr>
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
-			<h3>CADASTRAR NOVO ENDEREÇO</h3>
+			<h3 id="title-form-address">CADASTRAR NOVO ENDEREÇO</h3>
 			</div>
 		</div>
 		<div class="row">
@@ -85,7 +85,6 @@
 									<div class="form-group">
 										<label for="add_cep">CEP</label>
 										<input required type="text" class="form-control cep" name="add_cep" id="add_cep">
-										<input required type="hidden" name="add_user_id" id="add_user_id" value="<?php echo $costumer->id; ?>">
 									</div>
 								</div>
 								<div class="col-md-5">
@@ -131,10 +130,13 @@
 										<input required type="text" class="form-control" name="add_estado" id="add_estado">
 									</div>
 								</div>
+									<input required type="hidden" name="add_user_id" id="add_user_id" value="<?php echo $costumer->id; ?>">
+									<input required type="hidden" id="tipo-form" value="newAddress">
+									<input type="hidden" id="idaddress" name="id">
 								<div class="col-md-3">
 									<div class="form-group">
 										<label for="">.</label>
-										<button type="submit" class="form-control btn btn-info"><i class="fa fa-plus"> Cadastrar Endereço</i></button>
+										<button id="btn-form-address" type="submit" class="form-control btn btn-info"><i class="fa fa-plus"> Cadastrar Endereço</i></button>
 									</div>
 								</div>
 							</div>
@@ -172,7 +174,12 @@ $(document).ready(function() {
 		e.preventDefault();
 		var form 		= $(this).serialize();
 		var add_user_id = $('#add_user_id').val();
-		addAddress(form, add_user_id);
+		
+		if ($('#tipo-form').val() == 'newAddress') {
+			addAddress(form, add_user_id);
+		} else if($('#tipo-form').val() == 'editAddress') {
+			editAddress(form);
+		}
 	});
 
 	$('#edit-costumer').on('submit', function(e){

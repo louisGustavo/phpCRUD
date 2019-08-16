@@ -191,6 +191,7 @@ function getAddress(add_user_id) {
 				html += '			<th>Bairro</th>';
 				html += '			<th>Cidade</th>';
 				html += '			<th>UF</th>';
+				html += '			<th>Ações</th>';
 				html += '		</tr>';
 				html += '	</thead>';
 				html += '	<tbody>';
@@ -204,6 +205,13 @@ function getAddress(add_user_id) {
 				html += '			<td>'+address.add_bairro+'</td>';
 				html += '			<td>'+address.nomecidade+'</td>';
 				html += '			<td>'+address.add_estado+'</td>';
+				html += '			<td>';
+				html += '				<a id="edit-address-'+address.id+'" class="edit-address" idad="'+address.id+'" href="#" title="Editar">';
+				html += '					<i class="fa fa-edit text-success"></i></a>';
+				html += '|';
+				html += '				<a id="delete-address-'+address.id+'" class="delete-address" idad="'+address.id+'" title="Excluir" href="#">';
+				html += '					<i class="fa fa-trash text-danger"></i></a>';
+				html += '			</td>';
 				html += '		</tr>';
 				});
 				html += '	</tbody>';
@@ -213,10 +221,172 @@ function getAddress(add_user_id) {
 			}
 			$('#listagem-address').append(html);
 			$('#box-listagem-address').fadeIn();
+
+			$('.edit-address').each(function(){
+				var id = $(this).attr('idad');
+				$('#edit-address-'+id).on('click', function(e){
+					e.preventDefault();
+					formEditAddress(id);
+				});
+			});
+
+			$('.delete-address').each(function(){
+				var id = $(this).attr('idad');
+				$('#delete-address-'+id).on('click', function(e){
+					e.preventDefault();
+					deleteAddress(id, add_user_id);
+				});
+			});
 		}
 	});
 }
 //--------------| FIM RETORNA OS ENDEREÇOS CADASTRADOS |-----------------------
+
+//----------------| FORM EDITAR ENDEREÇOS CADASTRADOS |-------------------------
+function editAddress(form) {
+	$.ajax({
+		type: 'POST',
+		url: baseUrl+'/address/editAddress',
+		data: form,
+		dataType: 'json',
+		beforeSend: function(){
+			Swal.fire({
+				title: 'Aguarde',
+				text: 'Salvando Alterações',
+				type: 'warning',
+				showConfirmButton: false
+			});
+		},
+		success: function(data){
+			if (data.status == 'sucesso') {
+				Swal.fire({
+					title: 'Concluído',
+					text: 'Registro Alterado com Sucesso',
+					type: 'success',
+					timer: 2000
+				});
+				getAddress(data.add_user_id);
+				preparaFormAddress('NEW');
+				limpaFormAddress();
+			} else {
+				Swal.fire({
+					title: 'Erro',
+					text: 'Houve algum problema ao alterar o registro',
+					type: 'error'
+				});
+			}
+		}
+	});
+}
+//------------| FIM FORM EDITAR ENDEREÇOS CADASTRADOS |-------------------------
+
+//---------------| RETORNA DADOS PARA EDIÇÃO ENDEREÇO |-------------------------
+function formEditAddress(id){
+	$('#box-listagem-address').fadeOut();
+	$.ajax({
+		type: 'POST',
+		url: baseUrl+'/address/getTheAddress',
+		data: {id : id},
+		dataType: 'json',
+		beforeSend: function(){
+			Swal.showLoading();
+			Swal.fire({
+				title: 'Aguarde',
+				text: 'Carregando Dados',
+				type: 'success',
+				showConfirmButton: false,
+				timer: 2000
+			});
+		},
+		success: function(data){
+			preparaFormAddress('UPDATE', id);
+			$('#idaddress').val(data.id);
+			$('#add_cep').val(data.add_cep);
+			$('#add_street').val(data.add_street);
+			$('#add_number').val(data.add_number);
+			$('#add_comple').val(data.add_comple);
+			$('#add_bairro').val(data.add_bairro);
+			$('#add_cidade').val(data.add_cidade).change();
+			$('#add_estado').val(data.add_estado);
+		}
+	});
+}
+//--------------| FIM RETORNA DADOS PARA EDIÇÃO ENDEREÇO |----------------------
+
+//--------------------| PREPARA FORM CONFORME TIPO |----------------------------
+function preparaFormAddress(tipoForm, id = null) {
+	if (tipoForm == 'NEW') {
+		$('#idaddress').attr('required', false);
+		$('#title-form-address').html('CADASTRAR NOVO ENDEREÇO');
+		$('#tipo-form').val('newAddress');
+		$('#btn-form-address').html('<i class="fa fa-plus"> Cadastrar Endereço</i>');
+		$('#btn-form-address').addClass('btn-info');
+		$('#btn-form-address').removeClass('btn-success');
+	} else if (tipoForm == 'UPDATE') {
+		$('#idaddress').attr('required', true);
+		$('#title-form-address').html('EDITAR ENDEREÇO #'+id);
+		$('#tipo-form').val('editAddress');
+		$('#btn-form-address').html('<i class="fa fa-edit"> Salvar Alterações</i>');
+		$('#btn-form-address').removeClass('btn-info');
+		$('#btn-form-address').addClass('btn-success');
+	}
+}
+//---------------------| FIM PREPARA FORM CONFORME TIPO |-----------------------
+
+//--------------------------| FORM DELETAR ENDERÇOS |---------------------------
+function deleteAddress(id, add_user_id) {
+	Swal.fire({
+		title: 'Voce Tem Certeza?',
+		text: "Este registro será excluído permanetmente",
+		type: 'question',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Excluir Endereço',
+		cancelButtonText: 'Cancelar'
+	}).then((result) => {
+		if (result.value) {
+			$.ajax({
+				type: 'POST',
+				url: baseUrl+'/address/deleteAddress',
+				data: {id : id},
+				dataType: 'json',
+				beforeSend: function(){
+					Swal.fire({
+						title: 'Aguarde',
+						text: 'Exclusão em Andamento',
+						type: 'warning',
+						showConfirmButton: false
+					});
+				},
+				success: function(data){
+					if (data.status == 'sucesso') {
+						Swal.fire({
+							title: 'Concluído',
+							text: 'Registro Excluído',
+							type: 'success',
+							timer: 2000
+						});
+						getAddress(add_user_id);
+					} else {
+						Swal.fire({
+							title: 'Erro',
+							text: 'Houve algum problema ao excluir o registro',
+							type: 'error'
+						});
+					}
+				}
+			});
+		} else {
+			Swal.fire(
+				'OK!',
+				'Ação Cancelada',
+				'success'
+			)
+		}
+	});
+}
+//-------------------| FIM FORM DELETAR ENDERÇOS |---------------------------
 
 //---------------------| LIMPA FORM ENDEREÇOS |--------------------------------
 function limpaFormAddress(){
