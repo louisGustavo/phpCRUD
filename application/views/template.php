@@ -26,7 +26,7 @@
 		<footer class="fixed-bottom">			
 			<div class="container-fluid">
 				<div class="row text-center">
-					<div class="col-md-10 offset-md-1">Desenvolvido por Luís Gustavo</div>
+					<div class="col-md-10 offset-md-1">Desenvolvido por <a target="__blank" href="https://github.com/louisGustavo">Luís Gustavo</a></div>
 				</div>
 			</div>
 		</footer>

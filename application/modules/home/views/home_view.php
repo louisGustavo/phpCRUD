@@ -4,7 +4,7 @@
 		<h3>LISTAGEM DE CLIENTES</h3>
 		</div>
 		<div class="col-md-2 text-right">
-			<a href="<?php echo base_url('costumers/new'); ?>" class="btn btn-info"><i class="fa fa-user-plus"> Novo Cliente</i></a>
+			<a href="<?php echo base_url('costumers/newCostumer'); ?>" class="btn btn-info"><i class="fa fa-user-plus"> Novo Cliente</i></a>
 		</div>
 	</div>
 	<hr>

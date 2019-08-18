@@ -16,7 +16,7 @@ class Costumers extends CI_Controller {
 		$this->template->load('template', 'new_cost_view', $dados);
 	}
 
-	public function new() {
+	public function newCostumer() {
 		$dados = array();
 		$dados['cities'] = $this->cadcidades->getCities();
 		$this->template->load('template', 'new_cost_view', $dados);
